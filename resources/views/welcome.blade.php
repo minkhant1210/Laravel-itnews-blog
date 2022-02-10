@@ -14,7 +14,6 @@
                         <a href="{{ route('baseOnCategory',$article->category->id) }}" rel="category tag">
                             {{ $article->category->title }}
                         </a>
-
                     </div>
 
                     <div class="text-black-50 the-excerpt">
