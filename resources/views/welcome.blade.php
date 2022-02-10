@@ -18,7 +18,8 @@
 
                     <div class="text-black-50 the-excerpt">
                         <p>
-                            {{ \Illuminate\Support\Str::words($article->description, 50) }}
+{{--                            {{ \Illuminate\Support\Str::words($article->description, 50) }}--}}
+                            {{ $article->excerpt }}
                         </p>
                     </div>
 
