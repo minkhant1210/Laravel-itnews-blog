@@ -102,8 +102,10 @@ class ArticleController extends Controller
             "category" => "required|exists:categories,id"
         ]);
 
+        if ($article->title != $request->title){
+            $article->slug = Str::slug($request->title);
+        }
         $article->title = $request->title;
-        $article->slug = Str::slug($request->title);
         $article->description = $request->description;
         $article->category_id = $request->category;
         $article->update();
