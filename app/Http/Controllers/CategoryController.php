@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -16,6 +17,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
+//        $all = Category::all();
+//        foreach ($all as $a){
+//            $a->slug = Str::slug($a->title);
+//            $a->update();
+//        }
         return view('category.index');
     }
 

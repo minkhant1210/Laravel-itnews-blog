@@ -18,8 +18,8 @@ use App\Http\Controllers\BlogController;
 */
 
 Route::get('/', [BlogController::class, 'index'])->name('index');
-Route::get('/detail/{id}', [BlogController::class, 'detail'])->name('detail');
-Route::get('/caregory/{id}', [BlogController::class, 'baseOnCategory'])->name('baseOnCategory');
+Route::get('/detail/{slug}', [BlogController::class, 'detail'])->name('detail');
+Route::get('/category/{id}', [BlogController::class, 'baseOnCategory'])->name('baseOnCategory');
 Route::get('/user/{id}', [BlogController::class, 'baseOnUser'])->name('baseOnUser');
 Route::get('/date/{date}', [BlogController::class, 'baseOnDate'])->name('baseOnDate');
 Route::view('/about','blog.about')->name('about');
