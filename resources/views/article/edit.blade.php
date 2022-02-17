@@ -16,7 +16,7 @@
                         <i class="feather-plus-circle text-primary"></i>
                         <h5 class="d-inline mb-0">Article Update</h5>
                     </div>
-                    <form action="{{ route('article.update',$article->id) }}" method="post" id="createArticle">
+                    <form action="{{ route('article.update',$article->id) }}" method="post" id="createArticle" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                     </form>
@@ -36,6 +36,21 @@
                         </select>
                         @error('category')
                         <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-2 rounded">
+                <div class="card-body">
+                    <div class="form-group mb-0">
+                        <label for="photos" class="form-label">Select Photos</label>
+                        <input type="file" name="photos[]" id="photos" form="createArticle" class="form-control-file @error('photos') is-invalid @enderror" multiple>
+                        @error('photos')
+                        <small class="text-danger fw-bold"> {{ $message }}</small>
+                        @enderror
+                        @error('photos.*')
+                        <small class="text-danger fw-bold"> {{ $message }}</small>
                         @enderror
                     </div>
                 </div>

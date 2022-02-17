@@ -16,6 +16,15 @@
                         </a>
                     </div>
 
+                    <div class="my-3 feature-image-box">
+                    @forelse($article->photos()->latest('id')->limit(3)->get() as $photo)
+                        <img width="1024" height="682"
+                             src="{{ asset('storage/thumbnail/'.$photo->name) }}"
+                             class="attachment-large size-large wp-post-image w-25" alt="">
+                    @empty
+                    @endforelse
+                    </div>
+
                     <div class="text-black-50 the-excerpt">
                         <p>
 {{--                            {{ \Illuminate\Support\Str::words($article->description, 50) }}--}}
