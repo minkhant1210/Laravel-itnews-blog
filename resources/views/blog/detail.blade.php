@@ -9,7 +9,15 @@
 
         <h2 class="fw-bolder text-primary">{{ $article->title }}</h2>
         <div class="my-3 feature-image-box">
-            <div class="d-block d-md-flex justify-content-between align-items-center my-3">
+            <hr>
+            @forelse($article->photos()->latest('id')->limit(3)->get() as $photo)
+                <img width="1024" height="682"
+                     src="{{ asset('storage/thumbnail/'.$photo->name) }}"
+                     class="attachment-large size-large wp-post-image w-25" alt="">
+            @empty
+            @endforelse
+            <hr>
+                <div class="d-block d-md-flex justify-content-between align-items-center my-3">
 
                 <div class="">
                     @if($article->user->photo)
