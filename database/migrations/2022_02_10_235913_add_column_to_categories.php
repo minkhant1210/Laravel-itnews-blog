@@ -14,7 +14,7 @@ class AddColumnToCategories extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->string('slug')->nullable()->unique()->after('title');
+//            $table->string('slug')->nullable()->unique()->after('title');
         });
     }
 
