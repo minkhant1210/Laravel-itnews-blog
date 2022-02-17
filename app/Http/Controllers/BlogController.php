@@ -15,15 +15,18 @@ class BlogController extends Controller
 //        return $articles;
         return view('welcome',compact('articles'));
     }
-    public function detail($id){
-        $article = Article::find($id);
+    public function detail($slug){
+        $article = Article::where("slug",$slug)->first();
+        if (empty($article)){
+            return abort(404);
+        }
         return view('blog.detail',compact('article'));
     }
     public function baseOnCategory($id){
         $articles = Article::when(isset(request()->search), function ($query){
             $search = request()->search;
             $query->where("title","like","%$search%")->orwhere("description","like","%$search%");
-        })->where("category_id",$id)->with(['user','category'])->latest('id')->paginate(7);
+        })->with(['user','category'])->where("category_id",$id)->latest('id')->paginate(7);
         return view('welcome',compact('articles'));
     }
     public function baseOnUser($id){

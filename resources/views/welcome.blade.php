@@ -6,7 +6,7 @@
             <div class="border-bottom article-preview">
                 <div class="p-0 p-md-3">
                     <a class="fw-bold h4 d-block text-decoration-none"
-                       href="{{ route('detail',$article->id) }}">
+                       href="{{ route('detail',$article->slug) }}">
                         {{ \Illuminate\Support\Str::words($article->title, 10) }}
                     </a>
 
@@ -14,12 +14,12 @@
                         <a href="{{ route('baseOnCategory',$article->category->id) }}" rel="category tag">
                             {{ $article->category->title }}
                         </a>
-
                     </div>
 
                     <div class="text-black-50 the-excerpt">
                         <p>
-                            {{ \Illuminate\Support\Str::words($article->description, 50) }}
+{{--                            {{ \Illuminate\Support\Str::words($article->description, 50) }}--}}
+                            {{ $article->excerpt }}
                         </p>
                     </div>
 
@@ -44,7 +44,7 @@
                             </div>
                         </div>
 
-                        <a href="{{ route('detail',$article->id) }}" class="btn btn-outline-primary rounded-pill px-3">Read More</a>
+                        <a href="{{ route('detail',$article->slug) }}" class="btn btn-outline-primary rounded-pill px-3">Read More</a>
                     </div>
                 </div>
             </div>

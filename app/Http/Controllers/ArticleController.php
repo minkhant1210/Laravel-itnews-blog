@@ -7,6 +7,7 @@ use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
@@ -15,8 +16,24 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function apiIndex(){
+        $articles = Article::when(isset(request()->search), function ($query){
+            $search = request()->search;
+            $query->where("title","like","%$search%")->orwhere("description","like","%$search%");
+        })->with(['user','category'])->latest('id')->paginate(4);
+        return $articles;
+    }
+
     public function index()
     {
+//        $all = Article::all();
+//        foreach ($all as $a){
+//            $a->slug = Str::slug($a->title);
+//            $a->excerpt = Str::words($a->description,50);
+//            $a->update();
+//        }
+//        return $all;
+
         $articles = Article::when(isset(request()->search), function ($query){
             $search = request()->search;
             $query->where("title","like","%$search%")->orwhere("description","like","%$search%");
@@ -50,7 +67,9 @@ class ArticleController extends Controller
 
         $article = new Article();
         $article->title = $request->title;
+        $article->slug = Str::slug($request->title);
         $article->description = $request->description;
+        $article->excerpt = Str::words($request->description,50);
         $article->category_id = $request->category;
         $article->user_id = Auth::id();
         $article->save();
@@ -95,8 +114,12 @@ class ArticleController extends Controller
             "category" => "required|exists:categories,id"
         ]);
 
+        if ($article->title != $request->title){
+            $article->slug = Str::slug($request->title);
+        }
         $article->title = $request->title;
         $article->description = $request->description;
+        $article->excerpt = Str::words($request->description,50);
         $article->category_id = $request->category;
         $article->update();
 
