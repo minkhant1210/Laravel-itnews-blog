@@ -26,11 +26,13 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $all = Article::all();
+//        $all = Article::all();
 //        foreach ($all as $a){
+//            $a->slug = Str::slug($a->title);
 //            $a->excerpt = Str::words($a->description,50);
 //            $a->update();
 //        }
+//        return $all;
 
         $articles = Article::when(isset(request()->search), function ($query){
             $search = request()->search;
